@@ -46,5 +46,6 @@ def main():
     bitmap = convert2binary("fallus.png", 50, 50)
     printMatrix(bitmap)
 
+
 if __name__ == "__main__":
     main()

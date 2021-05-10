@@ -62,5 +62,6 @@ def main():
         result = iterate(X0[i], W, 0)
         print(str(X0[i]) + " ---> " + str(iterate(X0[i], W, 0)))
 
+
 if __name__ == "__main__":
     main()
