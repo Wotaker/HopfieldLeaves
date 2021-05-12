@@ -21,14 +21,23 @@ def generate_random_images(n, shape):
 
 def change_image(path, changes):
     """Changes image get from path, in random changes location change value between 0 and 1"""
-    image = Image.open(path)
-    image = ImageOps.grayscale(image)
-    np_image = np.array(image)
-    np_image = np_image // 128
+    np_image = load_image(path)
 
     random_positions = np.random.randint(0, 50, (changes, 2))
     for x, y in random_positions:
         np_image[x, y] = (np_image[x, y]+1) % 2
+    return np_image
+
+
+def load_image(path):
+    """
+    :param path: path to file
+    :return: load a file with 0,1 values
+    """
+    image = Image.open(path)
+    image = ImageOps.grayscale(image)
+    np_image = np.array(image)
+    np_image = np_image // 128
     return np_image
 
 

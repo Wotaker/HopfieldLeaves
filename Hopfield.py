@@ -1,16 +1,15 @@
 import numpy as np
+import os
+import utilities
 
 
-def printMatrix(M):
-    def formatNum(n):
-        if n >= 0: return " " + str(n)
-        return "-" + str(abs(n))
+def get_x(folder_path):
+    listdir = os.listdir(folder_path)
+    x = np.array((len(listdir),50,50))
+    for i, image in enumerate(listdir):
+        x[i, :, :] = utilities.load_image(folder_path + "/" + listdir)
+    return utilities
 
-    for w in range(len(M)):
-        print("[ ", end="")
-        for k in range(len(M[0])):
-            print("{x}".format(x=formatNum(M[w][k])), end=" ")
-        print("]")
 
 def bin5(n):
     if n < 0 or n > 31: return None
@@ -22,13 +21,14 @@ def bin5(n):
     return result
 
 
-
-def wage5(i, j, X):
-    if i == j: return 0
-    wageRes = 0
-    for m in [3, 24]:
-        wageRes += ((2 * X[m][i] - 1) * (2 * X[m][j] - 1))
-    return wageRes
+def wages(x):
+    n = 2500
+    w = np.zeros((n, n))
+    for i in range(0, n):
+        for j in range(0, n):
+            if i != j:
+                w[i, j] = np.sum(np.multiply(2 * x[:, i] - 1, 2 * x[:, j] - 1))
+    return w
 
 def iterate(xi, W, i):
     # x0 to wektor wejściowy do neuronu, W to macierz wag
@@ -46,21 +46,46 @@ def iterate(xi, W, i):
     return iterate(xi1, W, i + 1)
 
 
+def activation(y, y_prev):
+    y_new = np.copy(y_prev)
+    for i in range(y.shape[0]):
+        if y[i] > 0:
+            y_new[i] = 1
+        elif y[i] < 0:
+            y_new[i] = 0
+    return y_new
+
+
+def predict_w(w, x):
+    """
+    Run neural network to given example x
+    :param w: wage matrix
+    :param x:
+    :return:
+    """
+    y_prev = x.copy()
+    y = np.matmul(x, w)
+    y = activation(y, y_prev)
+    comparison = y == x
+    equal_arrays = comparison.all()
+    if equal_arrays:
+        return y
+    else:
+        return predict_w(w, y)
+
+
 def main():
     X0 = [bin5(j) for j in range(32)]
     print("========\n")
-    W = [[0 for i in range(5)] for j in range(5)]
 
-    for i in range(5):
-        for j in range(5):
-            W[i][j] = wage5(i, j, X0)
+    w = wages(X0)
 
-    printMatrix(W)
+    print(w)
 
     print("\n=== Stationary States ===")
     for i in range(31):
-        result = iterate(X0[i], W, 0)
-        print(str(X0[i]) + " ---> " + str(iterate(X0[i], W, 0)))
+        result = iterate(X0[i], w, 0)
+        print(str(X0[i]) + " ---> " + str(iterate(X0[i], w, 0)))
 
 
 if __name__ == "__main__":
