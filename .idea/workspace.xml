@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="15a695cb-a8bb-4aa8-9289-4bd5d8f6b8d8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ready_leaves/1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ready_leaves/1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ready_leaves/10.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ready_leaves/10.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ready_leaves/11.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ready_leaves/11.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ready_leaves/12.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ready_leaves/12.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ready_leaves/2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ready_leaves/2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ready_leaves/3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ready_leaves/3.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ready_leaves/4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ready_leaves/4.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ready_leaves/5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ready_leaves/5.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ready_leaves/6.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ready_leaves/6.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ready_leaves/7.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ready_leaves/7.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ready_leaves/8.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ready_leaves/8.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ready_leaves/9.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ready_leaves/9.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hopfield.py" beforeDir="false" afterPath="$PROJECT_DIR$/Hopfield.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilities.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilities.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,6 +120,7 @@
       <workItem from="1620746956698" duration="1959000" />
       <workItem from="1620817442016" duration="11000" />
       <workItem from="1620835736606" duration="3519000" />
+      <workItem from="1620901367019" duration="1500000" />
     </task>
     <task id="LOCAL-00001" summary="Added some leaves and resizing them">
       <created>1620664268869</created>
@@ -160,7 +150,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620838659661</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add files">
+      <created>1620901449978</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1620901449978</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,10 +180,11 @@
     <MESSAGE value="added image managing functions" />
     <MESSAGE value="utilities change_image update" />
     <MESSAGE value="Hopfield network based on numpy" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hopfield network based on numpy" />
+    <MESSAGE value="Add files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add files" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/HopfieldLeaves$BinarizeImage.coverage" NAME="BinarizeImage Coverage Results" MODIFIED="1620663338774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/HopfieldLeaves$resizer.coverage" NAME="resizer Coverage Results" MODIFIED="1620837177020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/HopfieldLeaves$resizer.coverage" NAME="resizer Coverage Results" MODIFIED="1620902862625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

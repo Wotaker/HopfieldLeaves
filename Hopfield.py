@@ -5,7 +5,7 @@ import utilities
 
 def get_x(folder_path):
     listdir = os.listdir(folder_path)
-    x = np.array((len(listdir),50,50))
+    x = np.array((len(listdir), 50, 50))
     for i, image in enumerate(listdir):
         x[i, :, :] = utilities.load_image(folder_path + "/" + listdir)
     return utilities
@@ -22,6 +22,11 @@ def bin5(n):
 
 
 def wages(x):
+    """
+
+    :param x: numpy array shape = (examples_number,2500)
+    :return:
+    """
     n = 2500
     w = np.zeros((n, n))
     for i in range(0, n):
@@ -60,7 +65,7 @@ def predict_w(w, x):
     """
     Run neural network to given example x
     :param w: wage matrix
-    :param x:
+    :param x: numpy array shape = (2500)
     :return:
     """
     y_prev = x.copy()

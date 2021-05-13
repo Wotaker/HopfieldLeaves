@@ -41,11 +41,35 @@ def load_image(path):
     return np_image
 
 
+def flatten_input(arr):
+    """
+    Flatten array.
+    :param arr: array of shape = (n, height, width)
+    :return: array of shape = (n, height*width)
+    """
+    shape = arr.shape
+    return np.reshape(arr, newshape=(shape[0], shape[1]*shape[2]), order='C')
+
+
+def back_to_image(arr):
+    """
+    Reshape array back to 3D form
+    :param arr: array of shape = (n, x*x)
+    :return: array of shape = (n, x, x)
+    """
+    shape = arr.shape
+    sqrt = np.sqrt(shape[1]).astype(np.int)
+    return np.reshape(arr, newshape=(shape[0], sqrt, sqrt), order='C')
+
+
 if __name__ == "__main__":
     resize((50, 50), "leaves", "ready_leaves")
     random = generate_random_images(50, (50, 50))
     plt.imshow(random[1])
     plt.show()
-    changed_image = change_image("ready_leaves/1.jpg", 50)
+    changed_image = change_image("ready_leaves/10.jpg", 50)
     plt.imshow(changed_image)
+    plt.show()
+    random_trans = back_to_image(flatten_input(random))
+    plt.imshow(random_trans[1])
     plt.show()
