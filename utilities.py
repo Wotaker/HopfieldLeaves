@@ -29,16 +29,22 @@ def change_image(path, changes):
     return np_image
 
 
-def load_image(path):
+def load_image(path, limit=180):
     """
+    :param limit: below that value map to 0, else map to 1
     :param path: path to file
     :return: load a file with 0,1 values
     """
     image = Image.open(path)
     image = ImageOps.grayscale(image)
     np_image = np.array(image)
-    np_image = np_image // 128
-    return np_image
+    # np_image = np_image // 64
+
+    cut = lambda x: x > limit
+    vFun = np.vectorize(cut)
+
+
+    return vFun(np_image)
 
 
 def flatten_input(arr):
@@ -63,11 +69,15 @@ def back_to_image(arr):
 
 
 if __name__ == "__main__":
-    resize((50, 50), "leaves", "ready_leaves")
-    random = generate_random_images(50, (50, 50))
-    plt.imshow(random[1])
+    # resize((50, 50), "leaves", "ready_leaves")
+    # random = generate_random_images(1, (50, 50))
+    # plt.imshow(random[0])
+    # plt.show()
+
+    plt.imshow(load_image("ready_leaves/10.jpg"))
     plt.show()
-    changed_image = change_image("ready_leaves/10.jpg", 50)
+
+    changed_image = change_image("ready_leaves/10.jpg", 250)
     plt.imshow(changed_image)
     plt.show()
     random_trans = back_to_image(flatten_input(random))
