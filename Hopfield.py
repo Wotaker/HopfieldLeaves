@@ -9,6 +9,7 @@ def get_x(folder_path):
     for i, image in enumerate(listdir):
         print(image)
         x[i, :, :] = utilities.load_image(folder_path + "/" + image)
+    print(x)
     return utilities.flatten_input(x)
 
 
@@ -17,12 +18,14 @@ def wages(x):
     :param x: numpy array shape = (examples_number,2500)
     :return:
     """
+    print(x.shape)
     n = 2500
     w = np.zeros((n, n))
     for i in range(0, n):
         for j in range(0, n):
             if i != j:
                 w[i, j] = np.sum(np.multiply(2 * x[:, i] - 1, 2 * x[:, j] - 1))
+    print(w)
     return w
 
 
@@ -72,6 +75,7 @@ class HopfieldNetwork:
         :image: array of shape (n,n)
         :return: network result
         """
+        print(np.sum(image))
         flatten = utilities.flatten_input(np.expand_dims(image, axis=0))[0]
         predicted = predict_w(self.wages, flatten)
         result = utilities.back_to_image(np.expand_dims(predicted, axis=0))[0]

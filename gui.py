@@ -41,7 +41,7 @@ class App:
             tk.messagebox.showerror(title="FileOpenError", message="File not Found")
             return
 
-        self.input_arr = change_image(input_path, 5)
+        self.input_arr = change_image(input_path, 0)
         self.plot(self.input_arr, 2, 1)
 
         predict_button = tk.Button(
@@ -77,7 +77,13 @@ class App:
 
     def predict(self, image):
         # TODO Tutaj funkcja predict() z pliku Hopfield.py
+        print(image)
+        plt.imshow(image)
+        plt.show()
         predicted_arr = self.network.predict_image(image)
+        print(predicted_arr)
+        plt.imshow(predicted_arr)
+        plt.show()
         self.plot(predicted_arr, 2, 2)
 
 
