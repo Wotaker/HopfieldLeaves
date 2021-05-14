@@ -6,9 +6,10 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
 from utilities import *
+from Hopfield import HopfieldNetwork
+
 
 class App:
-
     def __init__(self):
         self.window = tk.Tk()
         self.window.title("Predictions")
@@ -16,6 +17,8 @@ class App:
         self.height = 550
         self.window.resizable(False, False)
         self.window.geometry(str(self.width) + "x" + str(self.height))
+        self.input_arr = None
+        self.network = HopfieldNetwork()
 
         load_button = tk.Button(
             master=self.window,
@@ -32,18 +35,18 @@ class App:
         input_path = filedialog.askopenfilename(
             initialdir=".",
             title="Select a file",
-            filetypes=(("PNG files", ".png"), ("all files", "*.*"))
+            filetypes=(("PNG files", ".jpg"), ("all files", "*.*"))
         )
         if not input_path:
             tk.messagebox.showerror(title="FileOpenError", message="File not Found")
             return
 
-        input_arr = load_image(input_path)
-        self.plot(input_arr, 2, 1)
+        self.input_arr = change_image(input_path, 5)
+        self.plot(self.input_arr, 2, 1)
 
         predict_button = tk.Button(
             master=self.window,
-            command=lambda: self.predict(),
+            command=lambda: self.predict(self.input_arr),
             height=2,
             width=10,
             text="Predict"
@@ -72,11 +75,10 @@ class App:
         # placing the canvas on the Tkinter window
         canvas.get_tk_widget().grid(row=row, column=col)
 
-    def predict(self):
+    def predict(self, image):
         # TODO Tutaj funkcja predict() z pliku Hopfield.py
-        predicted_arr = generate_random_images(1, (50, 50))[0]
+        predicted_arr = self.network.predict_image(image)
         self.plot(predicted_arr, 2, 2)
-        pass
 
 
 if __name__ == '__main__':
