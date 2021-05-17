@@ -9,7 +9,6 @@ def get_x(folder_path):
     for i, image in enumerate(listdir):
         print(image)
         x[i, :, :] = utilities.load_image(folder_path + "/" + image)
-    print(x)
     return utilities.flatten_input(x)
 
 
@@ -18,13 +17,13 @@ def wages(x):
     :param x: numpy array shape = (examples_number,2500)
     :return:
     """
-    print(x.shape)
+    x_diff = np.abs(x-1)
     n = 2500
     w = np.zeros((n, n))
     for i in range(0, n):
         for j in range(0, n):
             if i != j:
-                w[i, j] = np.sum(np.multiply(2 * x[:, i] - 1, 2 * x[:, j] - 1))
+                w[i, j] = np.sum(np.multiply(2 * x_diff[:, i] - 1, 2 * x_diff[:, j] - 1))
     print(w)
     return w
 
@@ -32,11 +31,13 @@ def wages(x):
 def activation(y, y_prev):
     print(y.shape)
     y_new = np.copy(y_prev)
+    print(y.shape[0])
     for i in range(y.shape[0]):
         if y[i] > 0:
             y_new[i] = 1
         elif y[i] < 0:
             y_new[i] = 0
+    print(np.sum(y_new))
     return y_new
 
 
@@ -48,7 +49,9 @@ def predict_w(w, x):
     :return:
     """
     y_prev = x.copy()
-    y = np.matmul(x, w)
+    y = y_prev.copy()
+    for i in range(0, 2500):
+        y[i] = np.sum(np.dot(w[i, :], x[i]))
     y = activation(y, y_prev)
     comparison = y == x
     equal_arrays = comparison.all()
@@ -63,10 +66,11 @@ class HopfieldNetwork:
         self.x_data = get_x("ready_leaves")
         if path is not None:
             self.wages = np.load(path)
-            print(self.wages.shape)
+            print(self.wages)
         else:
             self.wages = wages(self.x_data)
             np.save(save_path, self.wages)
+            print(self.wages)
 
     def predict_image(self, image):
         """
@@ -75,7 +79,6 @@ class HopfieldNetwork:
         :image: array of shape (n,n)
         :return: network result
         """
-        print(np.sum(image))
         flatten = utilities.flatten_input(np.expand_dims(image, axis=0))[0]
         predicted = predict_w(self.wages, flatten)
         result = utilities.back_to_image(np.expand_dims(predicted, axis=0))[0]
