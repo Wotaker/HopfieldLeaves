@@ -7,7 +7,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
                                                NavigationToolbar2Tk)
 from utilities import *
 from Hopfield import HopfieldNetwork
-
+from modernHopfield import ModernHopfield
 
 class App:
     def __init__(self):
@@ -18,7 +18,7 @@ class App:
         self.window.resizable(False, False)
         self.window.geometry(str(self.width) + "x" + str(self.height))
         self.input_arr = None
-        self.network = HopfieldNetwork()
+        self.network = ModernHopfield()
 
         load_button = tk.Button(
             master=self.window,
@@ -41,12 +41,12 @@ class App:
             tk.messagebox.showerror(title="FileOpenError", message="File not Found")
             return
 
-        self.input_arr = change_image(input_path, 0)
+        self.input_arr = change_image(input_path, 500)
         self.plot(self.input_arr, 2, 1)
 
         predict_button = tk.Button(
             master=self.window,
-            command=lambda: self.predict(self.input_arr),
+            command=lambda: self.predict(np.copy(self.input_arr)),
             height=2,
             width=10,
             text="Predict"
@@ -76,12 +76,15 @@ class App:
         canvas.get_tk_widget().grid(row=row, column=col)
 
     def predict(self, image):
-        # TODO Tutaj funkcja predict() z pliku Hopfield.py
-        print(image)
+        print(image.shape)
         plt.imshow(image)
         plt.show()
-        predicted_arr = self.network.predict_image(image)
-        print(predicted_arr)
+        expand = np.expand_dims(image, axis=0)
+        print(expand.shape)
+        predicted_arr = self.network.process_image(flatten_input(expand)[0])
+        print(predicted_arr.shape)
+        expand_result = np.expand_dims(predicted_arr, axis=0)
+        predicted_arr = back_to_image(expand_result)[0]
         plt.imshow(predicted_arr)
         plt.show()
         self.plot(predicted_arr, 2, 2)

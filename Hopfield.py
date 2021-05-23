@@ -8,7 +8,9 @@ def get_x(folder_path):
     x = np.ndarray((len(listdir), 50, 50))
     for i, image in enumerate(listdir):
         print(image)
+
         x[i, :, :] = utilities.load_image(folder_path + "/" + image)
+    print(utilities.flatten_input(x).shape)
     return utilities.flatten_input(x)
 
 
@@ -23,7 +25,7 @@ def wages(x):
     for i in range(0, n):
         for j in range(0, n):
             if i != j:
-                w[i, j] = np.sum(np.multiply(2 * x_diff[:, i] - 1, 2 * x_diff[:, j] - 1))
+                w[i, j] = np.sum(np.dot(2 * x_diff[:, i] - 1, 2 * x_diff[:, j] - 1))
     print(w)
     return w
 
@@ -48,13 +50,19 @@ def predict_w(w, x):
     :param x: numpy array shape = (2500)
     :return:
     """
-    y_prev = x.copy()
-    y = y_prev.copy()
-    for i in range(0, 2500):
+    print(np.sum(x))
+    x = 2*x-1
+    y = np.copy(x)
+    print(y.shape[0])
+    for i in range(x.shape[0]):
         y[i] = np.sum(np.dot(w[i, :], x[i]))
-    y = activation(y, y_prev)
-    comparison = y == x
+        if y[i] > 0:
+            y[i] = 1
+        else:
+            y[i] = 0
+    comparison = y == 2*x-1
     equal_arrays = comparison.all()
+    print(equal_arrays)
     if equal_arrays:
         return y
     else:
@@ -79,6 +87,7 @@ class HopfieldNetwork:
         :image: array of shape (n,n)
         :return: network result
         """
+
         flatten = utilities.flatten_input(np.expand_dims(image, axis=0))[0]
         predicted = predict_w(self.wages, flatten)
         result = utilities.back_to_image(np.expand_dims(predicted, axis=0))[0]
